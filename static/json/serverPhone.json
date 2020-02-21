@@ -1,0 +1,34 @@
+{
+    "card": [
+        {
+          "title": { "text": "客服01" },
+          "img": { "url": "../../static/images/custom/touxiang.png" },
+          "phone": "18356793321"
+        },
+        {
+            "title": { "text": "客服02" },
+            "img": { "url": "../../static/images/custom/touxiang.png" },
+            "phone": "18356793322"
+        },
+        {
+            "title": { "text": "客服03" },
+            "img": { "url": "../../static/images/custom/touxiang.png" },
+            "phone": "18356793323"
+        },
+        {
+            "title": { "text": "客服04" },
+            "img": { "url": "../../static/images/custom/touxiang.png" },
+            "phone": "18356793324"
+        },
+        {
+            "title": { "text": "客服05" },
+            "img": { "url": "../../static/images/custom/touxiang.png" },
+            "phone": "18356793325"
+        },
+        {
+            "title": { "text": "客服06" },
+            "img": { "url": "../../static/images/custom/touxiang.png" },
+            "phone": "18356793326"
+        }
+      ]
+}

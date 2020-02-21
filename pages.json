@@ -1,0 +1,270 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "工作中心",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white",
+				"backgroundColor": "#F3F3F3",
+				"navigationStyle": "custom"
+			
+			}
+		},
+
+		{
+			"path": "pages/index/pending/index",
+			"style": {
+				"navigationBarTitleText": "待完善案例列表",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh":true
+
+			}
+		},
+		{
+			"path": "pages/index/confirmCase/index",
+			"style": {
+				"navigationBarTitleText": "处理中案例",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh":true
+			}
+		},
+		{
+			"path": "pages/index/visit/firstDiagnose",
+			"style": {
+				"navigationBarTitleText": "待确认方案",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh":true
+			}
+		},
+		
+		{
+			"path": "pages/index/logistics/index",
+			"style": {
+				"navigationBarTitleText": "生产单列表",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/caseBox/index",
+			"style": {
+				"navigationBarTitleText": "案例列表",
+				"enablePullDownRefresh":true,
+				"onReachBottomDistance":60,
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"backgroundColor":"#f3f3f3",
+				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/caseBox/checkDei",
+			"style": {
+				"navigationBarTitleText": "案例详情",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom"
+			}
+		},
+		
+		{
+			"path": "pages/caseBox/repairtext",
+			"style": {
+				"navigationBarTitleText": "修复案例",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/caseBox/addCase",
+			"style": {
+				"navigationBarTitleText": "案例信息",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/caseBox/dataCase",
+			"style": {
+				"navigationBarTitleText": "案例信息",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/caseBox/treatment",
+			"style": {
+				"navigationBarTitleText": "数据模型",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/caseBox/bracesList",
+			"style": {
+				"navigationBarTitleText": "补发牙套",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/caseBox/imageCase",
+			"style": {
+				"navigationBarTitleText": "案例信息",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/caseBox/imagesSee",
+			"style": {
+				"navigationBarTitleText": "案例信息",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/index/payment/index",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/index/newsContent",
+			"style": {
+				"navigationBarTitleText": "公告内容",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/personalInfor/index",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom"
+
+			}
+		},
+		{
+			"path": "pages/personalInfor/feedback",
+			"style": {
+				"navigationBarTitleText": "意见反馈",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/personalInfor/binding",
+			"style": {
+				"navigationBarTitleText": "绑定诊所",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/personalInfor/billList",
+			"style": {
+				"navigationBarTitleText": "账单记录",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/personalInfor/inforDetails",
+			"style": {
+				"navigationBarTitleText": "个人信息",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/personalInfor/help",
+			"style": {
+				"navigationBarTitleText": "帮助中心",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/personalInfor/exchange",
+			"style": {
+				"navigationBarTitleText": "券码核销",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/personalInfor/mailing/mailing",
+			"style": {
+				"navigationBarTitleText": "收货地址",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/personalInfor/mailing/addAddress",
+			"style": {
+				"navigationBarTitleText": "地址信息",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/loginBox/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/404/404",
+			"style": {
+				"navigationBarTitleText": "暂无数据",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		}
+	    
+    ],
+	"globalStyle": {
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#666666",
+		"selectedColor": "#5677FC",
+		"backgroundColor": "#FFFFFF",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/images/index/workbench.png",
+				"selectedIconPath": "static/images/index/workbench-hover.png"
+			},
+			{
+				"pagePath": "pages/caseBox/index",
+				"text": "案例中心",
+				"iconPath": "static/images/index/case.png",
+				"selectedIconPath": "static/images/index/case-hover.png"
+			},
+			{
+				"pagePath": "pages/personalInfor/index",
+				"text": "我的",
+				"iconPath": "static/images/index/personal.png",
+				"selectedIconPath": "static/images/index/personal-hover.png"
+			}
+		]
+	}
+}
