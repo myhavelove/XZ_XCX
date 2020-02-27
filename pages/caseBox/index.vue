@@ -1,12 +1,7 @@
 <template>
   <view class="container">
     <view class="example-body">
-      <iv-nav-bar
-        color="white"
-        background-color="#2ea8ab"
-        title="案例中心"
-        fixed="true"
-      />
+      <iv-nav-bar color="white" background-color="#2ea8ab" title="案例中心" fixed="true" />
     </view>
     <!-- 底部菜单 -->
     <!-- 底部菜单 -->
@@ -33,18 +28,22 @@
                 <span class="fl">{{ item.CaseCode }}</span>
               </view>
               <view class="item-tow-time fr">
-                <span class="font-text" >{{
+                <span class="font-text">
+                  {{
                   item.AddTime
-                }}</span>
+                  }}
+                </span>
               </view>
             </view>
             <view class="item-title item-color item-diter">
-              <span class="fl">{{ item.PatientName }}</span
-              >&nbsp;<span style="padding-left: 20px;">{{ item.SexName }}</span
-              ><span style="padding-left: 20px;">{{ item.Age }}岁</span>
-              <span class="fr start_item">{{
+              <span class="fl">{{ item.PatientName }}</span>&nbsp;
+              <span style="padding-left: 20px;">{{ item.SexName }}</span>
+              <span style="padding-left: 20px;">{{ item.Age }}岁</span>
+              <span class="fr start_item">
+                {{
                 item.CaseDevOrderStatusName
-              }}</span>
+                }}
+              </span>
             </view>
           </view>
         </view>
@@ -66,16 +65,20 @@
                 <span class="fl">{{ item.PatientName }}</span>
               </view>
               <view class="item-tow-time fr">
-                <span class="font-text" >{{
+                <span class="font-text">
+                  {{
                   item.AddTime
-                }}</span>
+                  }}
+                </span>
               </view>
             </view>
-            <view class="item-title item-color item-diter"
-              ><span>{{ item.CoopClinicName }}</span>
-              <span class="fr start_item">{{
+            <view class="item-title item-color item-diter">
+              <span>{{ item.CoopClinicName }}</span>
+              <span class="fr start_item">
+                {{
                 item.PublishCheckStatusName
-              }}</span>
+                }}
+              </span>
             </view>
           </view>
         </view>
@@ -140,7 +143,7 @@ export default {
     };
   },
   onReady() {},
-    onShow() {
+  onShow() {
     this.loadList(); //返回上一页刷新页面
   },
   mounted() {
@@ -192,37 +195,32 @@ export default {
     //获取案例列表{}
     loadList() {
       let _this = this;
-       wx.showNavigationBarLoading();
-      let tabUni=wx.getStorageSync('currentTab');
-        if(tabUni!=''){
-          _this.currentTab=tabUni;
-        }
+      wx.showNavigationBarLoading();
+      let tabUni = wx.getStorageSync("currentTab");
+      // if (tabUni != "") {
+      //   _this.currentTab = tabUni;
+      // }
       // #ifdef   MP-WEIXIN
-             wx.removeStorage({
+      wx.removeStorage({
         key: "parameter",
         success(res) {}
       });
-          wx.removeStorage({
+      wx.removeStorage({
         key: "imgPrtt",
-        success(res) {
-        }
+        success(res) {}
       });
-              wx.removeStorage({
+      wx.removeStorage({
         key: "twCase",
-        success(res) {
-        }
+        success(res) {}
       });
-         wx.removeStorage({
+      wx.removeStorage({
         key: "casecode",
-        success(res) {
-        }
+        success(res) {}
       });
-               wx.removeStorage({
+      wx.removeStorage({
         key: "patientcode",
-        success(res) {
-        }
+        success(res) {}
       });
-     
       let _token = wx.getStorageSync("token");
       let headconfig = {
         "content-type": "application/x-www-form-urlencoded"
@@ -230,42 +228,45 @@ export default {
       if (_token != "") {
         headconfig["token"] = _token;
         wx.request({
-        url: _this.tui.interfaceUrl() + "/api/Case/GetCaseBooksList",
-        data: {
-          pageIndex: _this.pageNum
-        },
-        header: headconfig,
-        method: "POST",
-        success: res => {
-          let data = res.data;
-          if (data.status == "Success") {
-            _this.dataList = [...data.data.Items[0]];
-            for (let item of _this.dataList) {
-              item.AddTime = util.dateFormat(item.AddTime, "yyyy-MM-dd hh:mm");
-              item.oneName = item.PatientName.charAt(0);
+          url: _this.tui.interfaceUrl() + "/api/Case/GetCaseBooksList",
+          data: {
+            pageIndex: _this.pageNum
+          },
+          header: headconfig,
+          method: "POST",
+          success: res => {
+            let data = res.data;
+            if (data.status == "Success") {
+              _this.dataList = [...data.data.Items[0]];
+              for (let item of _this.dataList) {
+                item.AddTime = util.dateFormat(
+                  item.AddTime,
+                  "yyyy-MM-dd hh:mm"
+                );
+                item.oneName = item.PatientName.charAt(0);
+              }
+              _this.PageCountZJ = data.data.TotalPages;
+              return false;
+            } else {
+              return false;
             }
-            _this.PageCountZJ = data.data.TotalPages;
-            return false;
-          } else {
-            return false;
+          },
+          complete(res) {
+            wx.hideLoading();
+            wx.hideNavigationBarLoading();
           }
-        },
-         complete(res) {
-        wx.hideLoading();
-        wx.hideNavigationBarLoading();
-      }
-      });
-      }else{
-         _this.tui.toast("请登录查看~");
+        });
+      } else {
+        _this.tui.toast("请登录查看~");
         return false;
       }
-      
+
       // #endif
     },
     // 获取修复案例
     repairChange() {
       let _this = this;
-       wx.showNavigationBarLoading();
+      wx.showNavigationBarLoading();
       // #ifdef  APP-PLUS || H5
       uni.request({
         url: _this.tui.interfaceUrl() + "/api/Case/GetImpCaseBookList",
@@ -298,37 +299,40 @@ export default {
       };
       if (_token != "") {
         headconfig["token"] = _token;
-            wx.request({
-        url: _this.tui.interfaceUrl() + "/api/Case/GetImpCaseBookList",
-        data: { pageIndex: _this.pageNum },
-        header: headconfig,
-        method: "POST",
-        success: res => {
-          let data = res.data;
-          if (data.status == "Success") {
-            _this.repairList = [...data.data.Items[0]];
-            for (let item of _this.repairList) {
-              item.AddTime = util.dateFormat(item.AddTime, "yyyy-MM-dd hh:mm");
-              item.oneName = item.PatientName.charAt(0);
-              item.age = 24;
-            }
-            _this.PageCountXF = data.data.TotalPages;
+        wx.request({
+          url: _this.tui.interfaceUrl() + "/api/Case/GetImpCaseBookList",
+          data: { pageIndex: _this.pageNum },
+          header: headconfig,
+          method: "POST",
+          success: res => {
+            let data = res.data;
+            if (data.status == "Success") {
+              _this.repairList = [...data.data.Items[0]];
+              for (let item of _this.repairList) {
+                item.AddTime = util.dateFormat(
+                  item.AddTime,
+                  "yyyy-MM-dd hh:mm"
+                );
+                item.oneName = item.PatientName.charAt(0);
+                item.age = 24;
+              }
+              _this.PageCountXF = data.data.TotalPages;
 
-            return false;
-          } else {
-            return false;
+              return false;
+            } else {
+              return false;
+            }
+          },
+          complete(res) {
+            wx.hideLoading();
+            wx.hideNavigationBarLoading();
           }
-        },
-         complete(res) {
-        wx.hideLoading();
-        wx.hideNavigationBarLoading();
-      }
-      });
-      }else{
-         _this.tui.toast("请登录查看~");
+        });
+      } else {
+        _this.tui.toast("请登录查看~");
         return false;
       }
-  
+
       // #endif
     },
     // tab切换
@@ -336,7 +340,7 @@ export default {
       this.currentTab = e.index;
     },
     // 案例列表
-    handlerButton(id,pid,state) {
+    handlerButton(id, pid, state) {
       // #ifdef  APP-PLUS || H5
 
       // 存储到本地
@@ -353,18 +357,18 @@ export default {
       // #endif
       // #ifdef   MP-WEIXIN
       console.log(state);
-      if(state=='新建'){
-          wx.setStorageSync("casecode", id);
-      wx.setStorageSync("patientcode", pid);
-      wx.setStorageSync("twCase",  2);
-      wx.setStorageSync("parameter", 1);
-      if (id != null) {
-        uni.navigateTo({
-          url: "dataCase"
-        });
+      if (state == "新建") {
+        wx.setStorageSync("casecode", id);
+        wx.setStorageSync("patientcode", pid);
+        wx.setStorageSync("twCase", 2);
+        wx.setStorageSync("parameter", 1);
+        if (id != null) {
+          uni.navigateTo({
+            url: "dataCase"
+          });
+          return false;
+        }
         return false;
-      }
-      return false;
       }
       wx.setStorageSync("casecode", id);
       uni.navigateTo({
@@ -490,7 +494,6 @@ page {
   color: green;
   font-weight: 600;
   font-size: 13px;
-
 }
 
 /* 名字首字符 */
@@ -540,11 +543,9 @@ page {
 .example-body {
   height: 73px;
   position: relative;
-z-index: 11;
-
+  z-index: 11;
 }
-.font-text{
+.font-text {
   font-size: 12px;
-
 }
 </style>

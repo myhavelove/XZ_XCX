@@ -523,7 +523,8 @@ export default {
       uni.getStorage({
         key: "casecode",
         success: function(res) {
-          _this.casecode = res.data.CaseCode;
+          _this.casecode = res.data;
+          console.log(res.data);
         }
       });
       uni.request({
