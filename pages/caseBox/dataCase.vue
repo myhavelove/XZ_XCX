@@ -211,7 +211,6 @@
         <button
           class="btn-primary btn-gray btn-class"
           hover-class="btn-gray-hover"
-          formType="reset"
           @tap="nextSteps"
           :disabled="nextBtn"
         >
@@ -297,7 +296,6 @@ export default {
     // 治疗范围
     this.$refs.scopeList.set({
       type: "radio", // 类型：单选框
-      index: this.form.zhiliaofanwei, //获取选中的
       list: [
         // 列表数据
         { text: "全口" },
@@ -307,7 +305,6 @@ export default {
     });
     this.$refs.molarLeftRelationList.set({
       type:"radio",
-       index: this.form.zhiliaofangshileft, //获取选中的
       list: [
         // 列表数据
         { text: "保持磨牙关系" },
@@ -316,7 +313,6 @@ export default {
     })
       this.$refs.molarRightRelationList.set({
       type:"radio",
-       index: this.form.zhiliaofangshiright, //获取选中的
       list: [
         // 列表数据
         { text: "保持磨牙关系" },
@@ -326,7 +322,6 @@ export default {
     // 磨牙关系
     this.$refs.molarLeftList.set({
       type: "radio", // 类型：单选框
-      index: this.form.moyaguanxileft, //获取选中的
       list: [
         // 列表数据
         { text: "正常" },
@@ -337,7 +332,6 @@ export default {
     });
           this.$refs.faceLeftRelationList.set({
       type:"radio",
-       index: this.form.zhiliaotop, //获取选中的
       list: [
         // 列表数据
         { text: "维持" },
@@ -346,7 +340,6 @@ export default {
     })
     this.$refs.molarRightList.set({
       type: "radio", // 类型：单选框
-      index: this.form.moyaguanxiright, //获取选中的
       list: [
         // 列表数据
         { text: "正常" },
@@ -358,7 +351,6 @@ export default {
     // 脸型
     this.$refs.featureLeftList.set({
       type: "radio", // 类型：单选框
-      index: this.form.mianxingtop, //获取选中的
       list: [
         // 列表数据
         { text: "正常" },
@@ -368,7 +360,6 @@ export default {
     });
               this.$refs.faceRightRelationList.set({
       type:"radio",
-       index: this.form.zhiliaodown, //获取选中的
       list: [
         // 列表数据
         { text: "维持" },
@@ -377,14 +368,16 @@ export default {
     })
     this.$refs.featureRightList.set({
       type: "radio", // 类型：单选框
-      index: this.form.mianxingdown, //获取选中的
       list: [
         // 列表数据
         { text: "正常" },
-        { text: "下颌前突" },
+        { text: "下颌前突" ,},
         { text: "下颌收缩" }
       ]
     });
+  },
+      onShow() {
+    this.getData(); //获取信息
   },
   methods: {
     // 下一步
@@ -459,6 +452,33 @@ export default {
       if(_this.form.zhiliaoremark==''){
         _this.tui.toast("医生矫正计划\目标\备注说明");
         return;
+      }else if(_this.form.zhiliaofanwei==''){
+         _this.tui.toast("请将页面信息填写完整再进行提交~");
+        return;
+      }else if(_this.form.moyaguanxileft==''){
+         _this.tui.toast("请将页面信息填写完整再进行提交~");
+        return;
+      }else if(_this.form.moyaguanxiright==''){
+        _this.tui.toast("请将页面信息填写完整再进行提交~");
+        return;
+      }else if(_this.form.mianxingtop==''){
+         _this.tui.toast("请将页面信息填写完整再进行提交~");
+        return;
+      }else if(_this.form.mianxingdown==''){
+       _this.tui.toast("请将页面信息填写完整再进行提交~");
+        return;
+      }else if(_this.form.zhiliaofangshileft==''){
+         _this.tui.toast("请将页面信息填写完整再进行提交~");
+        return;
+      }else if(_this.form.zhiliaofangshiright==''){
+         _this.tui.toast("请将页面信息填写完整再进行提交~");
+        return;
+      }else if(_this.form.zhiliaotop==''){
+         _this.tui.toast("请将页面信息填写完整再进行提交~");
+        return;
+      }else if(_this.form.zhiliaodown==''){
+         _this.tui.toast("请将页面信息填写完整再进行提交~");
+        return;
       }
       // #ifdef  APP-PLUS || H5
 
@@ -466,7 +486,6 @@ export default {
         key: "patientcode",
         success: function(res) {
           _this.patientCode = res.data.patientcode;
-          console.log(_this.patientCode);
         }
       });
       uni.request({
@@ -510,7 +529,7 @@ export default {
           jsonradio: postData,
           casecode: _this.casecode,
           imglist: postImg,
-          zhiliaoremark:_this.form.zhiliaoremark
+          typeInt:2
         },
         header: headconfig,
         method: "POST",
@@ -589,6 +608,16 @@ export default {
                 _this.addCase=1;
               }else{
                  _this.form = JSON.parse(data.data.JsonRadio);
+
+                   _this.radioList(_this.$refs.scopeList,_this.form.zhiliaofanwei);
+                    _this.radioList(_this.$refs.molarLeftList,_this.form.moyaguanxileft);
+                     _this.radioList(_this.$refs.molarRightList,_this.form.moyaguanxiright);
+                      _this.radioList(_this.$refs.featureLeftList,_this.form.mianxingtop);
+                       _this.radioList(_this.$refs.featureRightList,_this.form.mianxingdown);
+                        _this.radioList(_this.$refs.molarLeftRelationList,_this.form.zhiliaofangshileft);
+                          _this.radioList(_this.$refs.molarRightRelationList,_this.form.zhiliaofangshiright);
+                            _this.radioList(_this.$refs.faceLeftRelationList,_this.form.zhiliaotop);
+                              _this.radioList(_this.$refs.faceRightRelationList,_this.form.zhiliaodown);
                  _this.addCase='';
               }
 
@@ -598,6 +627,14 @@ export default {
       }
 
       // #endif
+    },
+    // 单选框查看选择
+    radioList(radioArr,text){
+         for(let i=0;i<radioArr.list.length;i++){
+                    if(radioArr.list[i].text==text){
+                    radioArr.index=i;
+                   }
+              }
     },
     // 返回
     backClick() {

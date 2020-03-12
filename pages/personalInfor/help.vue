@@ -1,90 +1,105 @@
 <template>
-  <view class="container">
-    <view class="example-title">常见信息</view>
-    <view class="example-body">
-      <view v-for="item in helpArr" :key="item.id" class="example-box">
-        <iv-card
-          :title="item.title"
-          :is-shadow="item.shadow"
-          :note="item.note"
-          :extra="item.extra"
-          :thumbnail="item.thumbnail"
-          @click="clickCard"
-        >{{ item.content }}</iv-card>
-      </view>
-    </view>
-  </view>
+  <div class="container">
+    		<scroll-view scroll-y class="page">
+			<view class="cu-card">
+				<view class="cu-item bg-img shadow-blur" :style="[{backgroundImage:'url('+item.img+')'}]" @tap="toChild" :data-url="item.url"
+				 v-for="(item,index) in list" :key="index">
+					<view class="cardTitle">
+						{{item.title}}
+					</view>
+				</view>
+			</view>
+			<view class="cu-tabbar-height"></view>
+		</scroll-view>
+  </div>
 </template>
 <script>
-import ivCard from "@/components/card/card-help";
+import ivCard from "@/components/card/card";
 export default {
-  components: {
-    ivCard
-  },
+  components: { ivCard },
   data() {
     return {
-      helpArr: [] //帮助文档记录
+      list:[
+        {
+						title: '关于平台',
+						img: 'http://doc.xiujizhijia.com/Content/new/images/sylb2244.jpg',
+						url: 'platformHelp'
+					},
+					{
+						title: '关于口扫',
+						img: 'http://doc.xiujizhijia.com/Content/new/images/wdh2236.jpg',
+						url: 'mouthHelp'
+					},
+      ]
     };
   },
-  mounted() {
-    this.dataList();
-  },
   methods: {
-    // 获取数据
-    dataList() {
-      var data = require("../../static/json/Doubt.json");
-      this.helpArr = data.Doubt;
-    },
-    // 点击查看详情
-    clickCard() {}
+    	toChild(e) {
+				uni.navigateTo({
+					url: e.currentTarget.dataset.url
+				})
+			},
   }
 };
 </script>
 <style scoped>
-page {
-  background: #fff;
+.page {
+		height: 100vh;
+	}
+  .cu-card {
+    display: block;
+    overflow: hidden;
 }
-.example-title {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-size: 16px;
-  color: #464e52;
-  padding: 15px 15px 15px 25px;
-  margin-top: 10px;
-  position: relative;
-  background-color: #fdfdfd;
-  border-bottom: 1px #f5f5f5 solid;
+  .cu-card>.cu-item.shadow-blur {
+    overflow: initial;
 }
-.example-title:after {
-  content: "";
-  position: absolute;
-  left: 15px;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  height: 16px;
-  background-color: #cccccc;
+.cu-card>.cu-item {
+    display: block;
+    background-color: #ffffff;
+    overflow: hidden;
+    border-radius: 5px;
+    margin: 15px;
 }
-.example-body {
-  padding: 30upx 0;
+.bg-img {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
-
-.example-box {
-  margin-bottom: 30upx;
+.cardTitle {
+    color: #fff;
+    padding: 45px 30px;
+    font-size: 20px;
+    font-weight: 300;
+    -webkit-transform: skew(-10deg, 0deg);
+    transform: skew(-10deg, 0deg);
+    position: relative;
+    text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
 }
-
-.example-box:last-child {
-  margin-bottom: 0;
+.cardTitle::after {
+    content: "";
+    position: absolute;
+    width: 70px;
+    border-radius: 3px;
+    height: 12px;
+    background-color: #fff;
+    display: block;
+    bottom: 38px;
+    left: 45px;
+    -webkit-transform: skew(10deg, 0deg);
+    transform: skew(10deg, 0deg);
+    opacity: 0.1;
+}
+.cardTitle::before {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 3px;
+    border-radius: 10px;
+    background-color: #fff;
+    display: block;
+    top: 30px;
+    left: 25px;
+    -webkit-transform: skew(10deg, 0deg);
+    transform: skew(10deg, 0deg);
 }
 </style>

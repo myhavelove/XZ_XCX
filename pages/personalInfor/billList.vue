@@ -122,6 +122,7 @@ export default {
     }  else{
       this.billArr = this.billArr.concat(this.billArr);
       this.pageNum = this.pageNum + 1;
+      this.loadList();
     }
      if (this.pageNum2 == this.PageCountZJ){
          this.loadding = false;
@@ -163,7 +164,6 @@ export default {
           let data = res.data;
           _this.billArr = [...data.data.Items[0]];
           _this.PageCountZJ=data.data.TotalPages;
-          console.log(_this.billArr);
           for (let item of _this.billArr) {
             item.PayTime = util.dateFormat(item.PayTime, "yyyy-MM-dd hh:mm");
           }

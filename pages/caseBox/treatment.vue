@@ -114,7 +114,7 @@ export default {
         success: res => {
           let data = res.data;
           if (data.status == "Success") {
-            _this.videosrc = [...data.data];
+            _this.videosrc = data.data;
           }
         }
       });

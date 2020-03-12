@@ -149,7 +149,6 @@ margin-top: 2px;
           <button
             class="btn-primary btn-gray btn-class"
             hover-class="btn-gray-hover"
-            formType="reset"
             @click="nextSteps"
             :disabled="nextBtn"
           >
@@ -222,8 +221,8 @@ export default {
       type: "radio", // 类型：单选框
       list: [
         // 列表数据
-        { text: "男",value :"1"},
-        { text: "女",value:"0" }
+        { text: "男",value :"0"},
+        { text: "女",value:"1" }
       ]
     });
   },

@@ -93,8 +93,8 @@
       <view class="icon_3 plum" @tap="schemeTap">
         <image
           src="../../static/images/index/case/icon_05.png"
-          class="xz-icon fl"
-          style="padding-top: 15px;float: left;"
+          class="xz-icon fl "
+          style="padding-top: 15px;float: left;height: 42px;"
         />
         <view class="text_fo">
           <view class="text_color1">模型数据</view>
@@ -104,8 +104,8 @@
       <view class="icon_3 paleGreen" @tap="treatmentTap">
         <image
           src="../../static/images/index/case/icon_06.png"
-          class="xz-icon fl"
-          style="padding-top: 15px;float: left;"
+          class="xz-icon fl "
+          style="padding-top: 15px;float: left;height: 42px;"
         />
         <view class="text_fo">
           <view class="text_color2">治疗方案</view>
@@ -191,7 +191,13 @@
         <view class="click" v-if="options.length > 3" :data-index="flowindex" @click="tap_showflow"
           >{{ flowshowinfo }}
           <image
+          v-if="flowshowinfo=='点击查看更多进度详情'"
             src="../../static/images/index/case/pic08.png"
+            class="arrow"
+          ></image>
+           <image
+            v-if="flowshowinfo=='点击收起更多进度详情'"
+            src="../../static/images/index/case/pic09.png"
             class="arrow"
           ></image>
         </view>
@@ -248,10 +254,11 @@ export default {
       },
       heightBraces:true,
       bracesNum: 0, //判断牙套数值
+      imgStart:1,//图标样式
       // 病例进度
       options: [],
       flowindex: "",
-      flowshowinfo: "",
+      flowshowinfo: "点击查看更多进度详情",
       // 初诊方案
       firstList: [], //方案列表
       casescheme: "", //治疗方案
@@ -284,7 +291,6 @@ export default {
   methods: {
     tap_showflow(e) {
       let _this = this;
-      ;
       _this.flowindex = e.currentTarget.dataset.index == 1 ? 0 : 1;
       _this.flowshowinfo =
         e.currentTarget.dataset.index == 1
@@ -314,7 +320,7 @@ export default {
             _this.caseList = data.data.PatientsModel;
             _this.caseList.AddTime = util.dateFormat(
               _this.caseList.AddTime,
-              "yyyy-MM-dd hh:mm"
+              "yyyy-MM-dd "
             );
             _this.oneName = _this.caseList.PatientName.charAt(0);
             _this.caseList.CaseCode = data.data.CaseCode;
@@ -361,7 +367,7 @@ export default {
             _this.caseList = data.data.PatientsModel;
             _this.caseList.AddTime = util.dateFormat(
               _this.caseList.AddTime,
-              "yyyy-MM-dd hh:mm"
+              "yyyy-MM-dd "
             );
             _this.oneName = _this.caseList.PatientName.charAt(0);
             _this.caseList.CaseCode = data.data.CaseCode;
@@ -670,7 +676,7 @@ page {
 }
 .one_footer .add_time {
   float: right;
-  width: 40%;
+  margin-right: 15px;
   font-size: 12px;
 }
 .des_box {
@@ -688,6 +694,7 @@ page {
 }
 .dse_list {
   position: relative;
+  height: 40px;
 }
 .user_contact {
   float: left;
@@ -720,7 +727,6 @@ page {
   float: left;
   color: #2ea8ab;
   font-size: 16px;
-  font-weight: 600;
   padding: 0 24px;
 }
 .tow_flr .icon_01 {
@@ -732,9 +738,9 @@ page {
   text-align: center;
 }
 .xz-icon {
-  width: 26%;
-  height: 25px;
-  padding: 10px;
+ width: 30%;
+height: 35px;
+  padding: 8px;
 }
 .tow_flr .content {
   overflow: hidden;
@@ -861,8 +867,7 @@ page {
 .six_flr .title_01 {
   float: left;
   color: #2ea8ab;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 16px;
   padding: 0 24px;
 }
 /* 名字首字符 */

@@ -33,7 +33,7 @@
         </view>
       </view>
       <view v-if="isShowAdd" class="tui-upload-add" @tap="chooseImage">
-        <image src="/static/images/caseBox/up.png" class="up"></image>
+        <image :src="item.imglink" class="up"></image>
       </view>
     </view>
   </view>

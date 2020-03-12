@@ -87,8 +87,9 @@ export default {
 
       this.pullUpOn = false;
     } else {
-      this.confirmList = this.confirmList.concat(this.confirmList);;
+      this.confirmList = this.confirmList;
       this.pageNum = this.pageNum + 1;
+      this.loadList();
     }
   },
   methods: {

@@ -4,9 +4,10 @@
     <view class="picture">
       <form @submit="formPicture">
         <view class="arr_box">
-          <view class="tui-cell-class tui-list-cell tui-line-left margin">
+          <view class="tui-cell-class tui-list-cell tui-line-left margin type_name">
             <view class="xz-title">牙颌模型</view>
             <view class="box_f">
+              <view class="text_div" @click="textClick">口扫数据</view>
               <iv-checkbox
                 ref="modelList"
                 v-if="addImg == ''"
@@ -22,7 +23,7 @@
               >
             </view>
           </view>
-          <view class="tui-cell-class tui-list-cell tui-line-left margin">
+          <view class="tui-cell-class tui-list-cell tui-line-left margin img_box">
             <view class="box clearfix">
               <view
                 class="box-list clearfix"
@@ -43,7 +44,7 @@
                     ></image>
                     <view :data-index="item.index">点击上传图片</view>
                   </view> -->
-                  <iv-upload  @change="getImageInfo" :upimg_seat="item.index" :upload_auto="true"  ref="upimg1" :upload_count="1"></iv-upload >
+                  <iv-upload  @change="getImageInfo" :upimg_seat="item.index" :upimg_link='item.path==""|| item.path==imgUrl?item.imglink:item.path' :upload_auto="true"  ref="upimg1" :upload_count="1"></iv-upload >
 
                 </view>
 
@@ -63,7 +64,6 @@
             <button
               class="btn-primary xz-green btn-class "
               hover-class="btn-gray-hover"
-              style="font-size: 17px;"
               formType="reset"
               @tap="goCompany"
               :disabled="nextBtn"
@@ -144,77 +144,88 @@ export default {
           name: "全颌曲面断层X光片",
           upFilesBtn: true,
           path: "",
-          upFilesProgress: 0
+          upFilesProgress: 0,
+          imglink:'../../static/images/caseBox/a-01.jpg'
         },
         {
           index: 1,
           name: "头颅侧位X光片",
           upFilesBtn: true,
           path: "",
-          upFilesProgress: 0
+          upFilesProgress: 0,
+            imglink:'../../static/images/caseBox/a-02.jpg'
         },
         {
           index: 2,
           name: "上牙列",
           upFilesBtn: true,
           path: "",
-          upFilesProgress: 0
+          upFilesProgress: 0,
+            imglink:'../../static/images/caseBox/a-03.jpg'
         },
         {
           index: 3,
           name: "右侧磨牙关系",
           upFilesBtn: true,
           path: "",
-          upFilesProgress: 0
+          upFilesProgress: 0,
+            imglink:'../../static/images/caseBox/a-04.jpg'
         },
         {
           index: 4,
           name: "前牙咬合",
           upFilesBtn: true,
           path: "",
-          upFilesProgress: 0
+          upFilesProgress: 0,
+            imglink:'../../static/images/caseBox/a-05.jpg'
         },
         {
           index: 5,
           name: "左侧磨牙关系",
           upFilesBtn: true,
           path: "",
-          upFilesProgress: 0
+          upFilesProgress: 0,
+            imglink:'../../static/images/caseBox/a-06.jpg'
         },
         {
           index: 6,
           name: "下牙列",
           upFilesBtn: true,
           path: "",
-          upFilesProgress: 0
+          upFilesProgress: 0,
+            imglink:'../../static/images/caseBox/a-07.jpg'
         },
         {
           index: 7,
           name: "正面",
           upFilesBtn: true,
           path: "",
-          upFilesProgress: 0
+          upFilesProgress: 0,
+            imglink:'../../static/images/caseBox/a-08.jpg'
         },
         {
           index: 8,
           name: "正面微笑",
           upFilesBtn: true,
           path: "",
-          upFilesProgress: 0
+          upFilesProgress: 0,
+            imglink:'../../static/images/caseBox/a-09.jpg'
         },
         {
           index: 9,
           name: "左侧面",
           upFilesBtn: true,
           path: "",
-          upFilesProgress: 0
+          upFilesProgress: 0,
+            imglink:'../../static/images/caseBox/a-10.jpg'
         },
         {
           index: 10,
           name: "右侧面",
           upFilesBtn: true,
           path: "",
-          upFilesProgress: 0
+          upFilesProgress: 0,
+            imglink:'../../static/images/caseBox/a-11.jpg'
         }
       ],
       maxUploadLen: 1,
@@ -258,8 +269,8 @@ export default {
       type: "radio", // 类型：单选框
       list: [
         // 列表数据
-        { text: "口扫数据" },
-        { text: "牙模寄送" }
+       
+        { text: "牙模寄送",value:1 }
       ]
     });
     this.getCode();
@@ -289,12 +300,112 @@ export default {
 
       this.getData();
     },
+    // 获取数据
+    getData() {
+      let _this = this;
+      // #ifdef   MP-WEIXIN
+      _this.casecode = wx.getStorageSync("casecode");
+      _this.addImg = wx.getStorageSync("imgcaes");
+      let _token = wx.getStorageSync("token");
+      let headconfig = {
+        "content-type": "application/x-www-form-urlencoded"
+      };
+      if (_token != "") {
+        headconfig["token"] = _token;
+      }
+      if (_this.casecode != undefined) {
+        wx.request({
+          url: _this.tui.interfaceUrl() + "/api/Case/GetCaseBooks",
+          data: { casecode: _this.casecode },
+          header: headconfig,
+          method: "POST",
+          success: res => {
+            let data = res.data;
+            if (data.status != "Success") {
+              _this.tui.toast("数据获取失败~");
+              return false;
+            } else {
+              if(data.data.MouthDataType!=0){
+                 _this.$refs.modelList.index= data.data.MouthDataType;
+              }
+                   
+
+
+              _this.expressNumber=data.data.MouthDataNumbers;
+              _this.imagelist[0].path =_this.imgUrl+ data.data.XaPath;
+             _this.imagelist[1].path =_this.imgUrl+ data.data.XbPath;
+             _this.imagelist[2].path = _this.imgUrl+data.data.MouthUpPath;
+              _this.imagelist[3].path = _this.imgUrl+data.data.MouthDownPath;
+              _this.imagelist[4].path = _this.imgUrl+data.data.MouthLeftPath;
+              _this.imagelist[5].path = _this.imgUrl+data.data.MouthRightPath;
+              _this.imagelist[6].path = _this.imgUrl+data.data.MouthCenterPath;
+              _this.imagelist[7].path = _this.imgUrl+data.data.FacePath;
+              _this.imagelist[8].path = _this.imgUrl+data.data.FaceSmilePath;
+              _this.imagelist[9].path = _this.imgUrl+data.data.FaceLeftPath;
+              _this.imagelist[10].path = _this.imgUrl+data.data.FaceRightPath;
+
+
+
+
+               _this.form.XaPath = data.data.XaPath;
+             _this.form.XbPath = data.data.XbPath;
+             _this.form.MouthUpPath = data.data.MouthUpPath;
+              _this.form.MouthDownPath= data.data.MouthDownPath;
+              _this.form.MouthLeftPath =data.data.MouthLeftPath;
+              _this.form.MouthRightPath = data.data.MouthRightPath;
+              _this.form.MouthCenterPath =data.data.MouthCenterPath;
+              _this.form.FacePath = data.data.FacePath;
+              _this.form.FaceSmilePath = data.data.FaceSmilePath;
+              _this.form.FaceLeftPath = data.data.FaceLeftPath;
+              _this.form.FaceRightPath = data.data.FaceRightPath;
+               _this.form.MouthDataType=data.data.MouthDataType;
+            }
+          }
+        });
+      }
+
+      // #endif
+    },
     // 提交到数据
     goCompany() {
       // this.quitModal = true;
       let _this = this;
+      if(_this.form.XaPath==''){
+           _this.tui.toast("请录入完患者图片再进行提交");
+           return false;
+      }else if(_this.form.XbPath==''){
+           _this.tui.toast("请录入完患者图片再进行提交");
+           return false;
+      }else if(_this.form.MouthUpPath==''){
+           _this.tui.toast("请录入完患者图片再进行提交");
+           return false;
+      }else if(_this.form.MouthDownPath==''){
+           _this.tui.toast("请录入完患者图片再进行提交");
+           return false;
+      }else if(_this.form.MouthLeftPath==''){
+           _this.tui.toast("请录入完患者图片再进行提交");
+           return false;
+      }else if(_this.form.MouthRightPath==''){
+           _this.tui.toast("请录入完患者图片再进行提交");
+           return false;
+      }else if(_this.form.MouthCenterPath==''){
+           _this.tui.toast("请录入完患者图片再进行提交");
+           return false;
+      }else if(_this.form.FacePath==''){
+           _this.tui.toast("请录入完患者图片再进行提交");
+           return false;
+      }else if(_this.form.FaceSmilePath==''){
+           _this.tui.toast("请录入完患者图片再进行提交");
+           return false;
+      }else if(_this.form.FaceLeftPath==''){
+           _this.tui.toast("请录入完患者图片再进行提交");
+           return false;
+      }else if(_this.form.FaceRightPath==''){
+           _this.tui.toast("请录入完患者图片再进行提交");
+           return false;
+      }
       let postData = JSON.stringify(_this.form);
-
+      let MouthDataType=_this.form.MouthDataType;
       let _token = wx.getStorageSync("token");
       let headconfig = {
         "content-type": "application/x-www-form-urlencoded"
@@ -307,9 +418,10 @@ export default {
         data: {
           patientCode: _this.patientcode,
           jsonradio: "",
-          content: "",
           casecode: _this.casecode,
-          imglist: postData
+          imglist: postData,
+          typeInt:3,
+          MouthDataType:MouthDataType
         },
         header: headconfig,
         method: "POST",
@@ -320,6 +432,9 @@ export default {
             _this.contentTitle = data.data;
             _this.quitModal = true;
             return false;
+          }else if(data.status == "Error"){
+             _this.tui.toast(data.message);
+             return false;
           }
         }
       });
@@ -333,13 +448,13 @@ export default {
     //牙合模型
     valueChange() {
       let data = this.$refs.modelList.get(); // 组件返回的数据
-      this.form.MouthDataType = data.text;
-      if (this.form.MouthDataType == "牙模寄送") {
+      this.form.MouthDataType = data.value;
+      if (this.form.MouthDataType == 1) {
         this.expressModal = true;
         return false;
       }
     },
-    //提交数据
+    //保存数据
     formPicture() {
       let _this = this;
           let postData = JSON.stringify(_this.form);
@@ -360,7 +475,9 @@ export default {
               jsonradio: "",
               content: "",
               casecode: _this.casecode,
-              imglist: postData
+              imglist: postData,
+              typeInt:3
+
             },
             header: headconfig,
             method: "POST",
@@ -370,9 +487,9 @@ export default {
               if (data.status == "Success") {
                 _this.tui.toast("保存成功~");
                 let data = _this.$refs.modelList.get(); // 组件返回的数据
-                _this.form.MouthDataType = data.text;
+                _this.form.MouthDataType = data.value;
 
-                if (_this.form.MouthDataType == "牙模寄送") {
+                if (_this.form.MouthDataType == 1) {
                   _this.nextBtn = false;
                   return false;
                 } else {
@@ -414,7 +531,7 @@ export default {
     // 牙模寄送
     saveSmall() {
       let _this = this;
-      _this.expressModal = false;
+     
       let _token = wx.getStorageSync("token");
       let headconfig = {
         "content-type": "application/x-www-form-urlencoded"
@@ -422,7 +539,11 @@ export default {
       if (_token != "") {
         headconfig["token"] = _token;
       }
-
+      if(_this.expressNumber==''){
+        _this.tui.toast('请填写快递单号再进行提交~');
+        return false;
+      }
+       _this.expressModal = false;
       wx.request({
         url: _this.tui.interfaceUrl() + "/api/Case/SaveCaseBookKouSao",
         data: {
@@ -506,7 +627,10 @@ export default {
        
        
 			},
-
+      // 点击口扫数据
+      textClick(){
+         this.tui.toast("手机端无法提交口扫数据");
+      }
 
 
   }
@@ -537,12 +661,32 @@ uni-button {
   padding: 13px 15px;
   background: #fff;
 }
-/* 图片信息1 */
+.text_div{
+  float: left;
+padding: 2px 5px;
+border: 1px solid #dedede;
+margin-right: 5px;
 
+}
+.box_f{
+  margin-left: 20px;
+margin-top: 10px;
+
+}
+/* 图片信息1 */
+.type_name{
+margin-left: 25px;
+padding: 0 0 15px 0;
+margin-bottom: -20px;
+
+}
+.img_box{
+ margin-top: -22px;
+ 
+}
 .box {
   background: #fff;
-  padding: 20rpx 0;
-  margin-top: 10rpx;
+  padding: 10rpx 0;
 }
 .box-list {
   width: 50%;
@@ -639,8 +783,8 @@ uni-button,
   padding: 5px 0;
 }
 .express-address {
-  font-size: 12px;
-  padding: 5px 0;
+  font-size: 14px;
+  padding: 10px 0;
 }
 .delbtn {
   width: 50rpx;

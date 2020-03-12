@@ -60,7 +60,7 @@
       class="xz-green xz-btn-block xz-btn xz-green-hover"
       @click="removeClick"
       v-if="state == 3"
-      >待审核</iv-button
+      >提交待审核</iv-button
     >
 
     <iv-toast ref="toast"></iv-toast>
@@ -268,13 +268,13 @@ export default {
           let params = {};
           if (data.status === "Error") {
             params = {
-              title: data.message,
+              title: '操作失败',
               imgUrl: "/static/images/notice/fail-circle.png",
               icon: true
             };
           } else {
             params = {
-              title: data.message,
+                    title: '操作成功',
               imgUrl: "/static/images/notice/check-circle.png",
               icon: true
             };
@@ -300,15 +300,22 @@ export default {
         success: res => {
           let data = res.data;
           let params = {};
+          let msg='';
+          if(data.message='解绑成功'){
+            msg='已提交挂靠/解绑申请';
+
+          }else{
+            msg=data.message;
+          }
           if (data.status === "Error") {
             params = {
-              title: data.message,
+              title: msg,
               imgUrl: "/static/images/notice/fail-circle.png",
               icon: true
             };
           } else {
             params = {
-              title: data.message,
+                    title: msg,
               imgUrl: "/static/images/notice/check-circle.png",
               icon: true
             };

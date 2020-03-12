@@ -288,7 +288,11 @@ export default {
     setTimeout(() => {
       this.animation = true;
     }, 600);
+      wx.showShareMenu({
+      withShareTicket: true
+    })
   },
+  
     onShow() {
     this.getUserData(); //获取用户信息
   },
@@ -300,6 +304,26 @@ export default {
   onBackPress() {
     return true;
   },
+//    onShareAppMessage: function (ops) {
+//    if (ops.from === 'button') {
+//      // 来自页面内转发按钮
+//      console.log(ops.target)
+//    }
+//    return {
+//      title: '修正隐形正畸',
+//      path: 'pages/index',  // 路径，传递参数到指定页面。
+//      imageUrl:'http://doc.xiujizhijia.com/upload/Files/20200304135926.jpg', // 分享的封面图
+//      success:res=> {
+//        // 转发成功
+//        console.log("转发成功:" + JSON.stringify(res));
+//      },
+//      fail: function (res) {
+//        // 转发失败
+//        console.log("转发失败:" + JSON.stringify(res));
+//      }
+//    }
+
+//  },
   methods: {
 
     //   轮播
@@ -343,6 +367,7 @@ export default {
         success: function(res) {
         }
       });
+    
       uni.removeStorage({
         key: "inputVal",
         success: function(res) {
@@ -388,6 +413,11 @@ export default {
        wx.removeStorage({
         key: "imgPrtt",
         success(res) {
+        }
+      });
+           uni.removeStorage({
+        key: "erwq",
+        success: function(res) {
         }
       });
          wx.removeStorage({

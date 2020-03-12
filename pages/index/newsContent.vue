@@ -13,16 +13,12 @@
       <view class="xz-news-title">
         {{ contentList.Title==undefined?'':contentList.Title }}
       </view>
-      <view class="xz-sub-info">
-        <view>
-          <text>{{ contentList.AddTime==undefined?'':contentList.AddTime }}</text>
-        </view>
-      </view>
       <view class="xz-news-content">
         <image
           :src="imgUrl + contentList.ImagerUrl"
           class="xz-article-pic"
           mode="widthFix"
+          @tap="previewImg"
           v-if="contentList.ImagerUrl != ''"
         ></image>
         <view class="xz-article">
@@ -126,6 +122,16 @@ export default {
       }
       });
       // #endif
+    },
+    previewImg(event){
+     let  _this=this;
+      var src = _this.imgUrl+_this.contentList.ImagerUrl;//获取data-src
+     var imgList = [_this.imgUrl+_this.contentList.ImagerUrl];//获取data-list
+    //图片预览
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: imgList // 需要预览的图片http链接列表
+    })
     }
   }
 };

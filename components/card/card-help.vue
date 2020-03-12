@@ -150,6 +150,7 @@
         &-title {
           font-size: 30upx;
           overflow: hidden;
+          
           text-overflow: ellipsis;
           white-space: nowrap;
         }
@@ -196,6 +197,7 @@
         &-text {
           font-size: $uni-font-size-lg;
           flex: 1;
+          font-weight: 600;
           // @include text-omit;
         }
       }
@@ -224,7 +226,7 @@
     }
 
     &__content {
-      color: #555;
+      color: #333;
 
       &--pd {
         padding: $uni-spacing-col-base;

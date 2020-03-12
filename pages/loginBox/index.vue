@@ -349,7 +349,8 @@ export default {
 				}, 200);
               _this.btn = "登录";
           } else {
-            _this.tui.toast(data.message);
+
+            _this.tui.toast('登录失败,请确认账号密码是否正确！');
             _this.btn = "登录";
           }
         }

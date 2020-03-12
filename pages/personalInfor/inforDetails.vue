@@ -285,7 +285,7 @@ page {
 }
 .xz-list-view i {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   font-style: normal;
   width: 32%;
   text-align: right;

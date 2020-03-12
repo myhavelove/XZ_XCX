@@ -39,7 +39,7 @@
       </view>
     </view>
     <!--加载loadding-->
-    <iv-loadmore :visible="loadding"></iv-loadmore>
+    <!-- <iv-loadmore :visible="loadding"></iv-loadmore> -->
     <iv-nomore :visible="!pullUpOn"></iv-nomore>
     <!--加载loadding-->
     <!-- 当页面没有数据时 -->
@@ -95,48 +95,13 @@ export default {
     } else {
       this.pendingList = this.pendingList.concat(this.pendingList);
       this.pageNum = this.pageNum + 1;
+      this.loadList();
     }
   },
   methods: {
     //   获取列表数据
     loadList() {
       let _this = this;
-      // #ifdef  APP-PLUS || H5
-
-      uni.removeStorage({
-        key: "casecode",
-        success: function(res) {}
-      });
-      uni.removeStorage({
-        key: "patientcode",
-        success: function(res) {}
-      });
-
-      uni.request({
-        url: _this.tui.interfaceUrl() + "/api/Case/GetCaseIng",
-        data: { patinCode: "", pageIndex: _this.pageNum },
-        header: { "content-type": "application/x-www-form-urlencoded" },
-        method: "POST",
-        success: res => {
-          let data = res.data;
-          if (data.status == "Success") {
-            _this.$refs.loading.close();
-            _this.pendingList = [...data.data.Items[0]];
-            for (let item of _this.pendingList) {
-              item.AddTime = util.dateFormat(item.AddTime, "yyyy-MM-dd hh:mm");
-              item.oneName = item.PatientName.charAt(0);
-            }
-            if (data.data.Items[0].length == 0) {
-              return false;
-            }
-            _this.PageCount = data.data.TotalPages;
-            return false;
-          } else {
-            return false;
-          }
-        }
-      });
-      // #endif
       // #ifdef   MP-WEIXIN
       wx.removeStorage({
         key: "casecode",

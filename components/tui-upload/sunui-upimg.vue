@@ -8,10 +8,10 @@
 					<view class="sunui-loader-filecontent" v-if="item.upload_percent<100">{{item.upload_percent}}%</view>
 				</view>
 			</block>
-			<view v-show="upload_len<upload_count" :data-index="upimg_seat" hover-class="sunui-uploader-hover" class="sunui-uploader-inputbox"
-			 @click="chooseImage" :style="upload_img_wh">
+			<view v-show="upload_len<upload_count" :data-index="upimg_seat"  hover-class="sunui-uploader-hover" class="sunui-uploader-inputbox"
+			 @click="chooseImage" :style="upload_img_wh"   >
 				<view>
-					<text class="iconfont icon-mn_shangchuantupian" style="color: #666;"></text>
+					<image :src="upimg_link" class="img_background"></image>
 				</view>
 			</view>
 		</view>
@@ -40,7 +40,7 @@
 			// 上传样式宽高
 			upload_img_wh: {
 				type: String,
-				default: 'width:162rpx;height:162rpx;'
+				default: 'width:238rpx;height:220rpx;'
 			},
 			// 上传数量
 			upload_count: {
@@ -61,6 +61,11 @@
 			upimg_seat:{
 				type: [Number, String],
 				default: 0	
+			},
+			//初始默认图片
+			upimg_link:{
+				type:[String],
+				default:0
 			}
 		},
 		async created() {
@@ -318,7 +323,7 @@
 	}
 
 	.sunui-uploader-bd {
-		padding: 46rpx;
+		padding: 10rpx;
 		margin: 0;
 	}
 
@@ -350,5 +355,9 @@
 	.sunui-uploader-hover {
 		box-shadow: 0 0 0 #e5e5e5;
 		background: #e5e5e5;
+	}
+	.img_background{
+		width: 118px;
+		height: 120px;
 	}
 </style>

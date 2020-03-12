@@ -85,7 +85,7 @@
       </view>
     </view>
     <!--加载loadding-->
-    <iv-loadmore :visible="loadding"></iv-loadmore>
+    <!-- <iv-loadmore :visible="loadding"></iv-loadmore> -->
     <iv-nomore :visible="!pullUpOn"></iv-nomore>
     <!--加载loadding-->
     <!-- 暂无数据 -->
@@ -126,10 +126,9 @@ export default {
       pageNum: 1, //分页
       PageCountXF: "", //修复案例总页数
       PageCountZJ: "", //正畸案例总页数
+      // 加载更多
       loadding: false,
       pullUpOn: true,
-      // 加载更多
-      loadingType: 0,
 
       //  tab参数
       navbar: [
@@ -147,6 +146,7 @@ export default {
     this.loadList(); //返回上一页刷新页面
   },
   mounted() {
+    this. loadList() ;
     this.repairChange(); //修复案例
   },
   onBackPress() {
@@ -183,12 +183,11 @@ export default {
     this.loadding = true;
     if (this.pageNum == this.PageCountZJ) {
       this.loadding = false;
-
       this.pullUpOn = false;
     } else {
       this.dataList = this.dataList.concat(this.dataList);
-      this.repairList = this.repairList.concat(this.repairList);
       this.pageNum = this.pageNum + 1;
+      this.loadList();
     }
   },
   methods: {
@@ -197,9 +196,9 @@ export default {
       let _this = this;
       wx.showNavigationBarLoading();
       let tabUni = wx.getStorageSync("currentTab");
-      // if (tabUni != "") {
-      //   _this.currentTab = tabUni;
-      // }
+      if (tabUni != "") {
+        _this.currentTab = tabUni;
+      }
       // #ifdef   MP-WEIXIN
       wx.removeStorage({
         key: "parameter",
@@ -399,7 +398,7 @@ export default {
         url: "repairtext"
       });
       // #endif
-    }
+    },
   }
 };
 </script>

@@ -13,6 +13,7 @@
       hover-class="hover"
       :hover-stay-time="150"
       class="list-box"
+      
     >
       <view class="list-item">
         <view class="cu-avatar">{{ item.oneName }}</view>
@@ -48,6 +49,7 @@
       :key="index"
       hover-class="hover"
       :hover-stay-time="150"
+       @tap="handlerButton(item.CaseCode,item.PatientCode,item.CaseDevOrderStatusName)"
       class="list-box"
     >
       <view class="list-item">
@@ -208,7 +210,44 @@ export default {
       }
 
       // #endif
-    }
+    },
+    // 案例列表
+    handlerButton(id, pid, state) {
+      // #ifdef  APP-PLUS || H5
+
+      // 存储到本地
+      uni.setStorage({
+        key: "casecode",
+        data: { casecode: id },
+        success: function() {
+          console.log("success");
+        }
+      });
+      uni.navigateTo({
+        url: "checkDei"
+      });
+      // #endif
+      // #ifdef   MP-WEIXIN
+      console.log(state);
+      if (state == "新建") {
+        wx.setStorageSync("casecode", id);
+        wx.setStorageSync("patientcode", pid);
+        wx.setStorageSync("twCase", 2);
+        wx.setStorageSync("parameter", 1);
+        if (id != null) {
+          uni.navigateTo({
+            url: "../../caseBox/dataCase"
+          });
+          return false;
+        }
+        return false;
+      }
+      wx.setStorageSync("casecode", id);
+      uni.navigateTo({
+        url: "../../caseBox/checkDei"
+      });
+      // #endif
+    },
   }
 };
 </script>

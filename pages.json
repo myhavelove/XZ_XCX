@@ -197,6 +197,22 @@
 			}
 		},
 		{
+			"path": "pages/personalInfor/platformHelp",
+			"style": {
+				"navigationBarTitleText": "帮助中心",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/personalInfor/mouthHelp",
+			"style": {
+				"navigationBarTitleText": "帮助中心",
+				"navigationBarBackgroundColor": "#2ea8ab",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
 			"path": "pages/personalInfor/exchange",
 			"style": {
 				"navigationBarTitleText": "券码核销",
@@ -245,7 +261,7 @@
 	},
 	"tabBar": {
 		"color": "#666666",
-		"selectedColor": "#5677FC",
+		"selectedColor": "#2ea8ab",
 		"backgroundColor": "#FFFFFF",
 		"list": [{
 				"pagePath": "pages/index/index",
